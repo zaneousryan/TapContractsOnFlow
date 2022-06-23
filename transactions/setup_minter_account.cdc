@@ -15,20 +15,20 @@ transaction {
 
     prepare(signer: AuthAccount) {
         // Return early if the account already has a collection
-        if signer.borrow<&TapMyNFT.Collection>(from: TapMyNFT.CollectionStoragePath) != nil {
+        if signer.borrow<&TapMyNFT.Collection>(from: TapMyNFT.MinterStoragePath) != nil {
             return
         }
 
         // Create a new empty collection
-        let collection <- TapMyNFT.createEmptyCollection()
+        let collection <- TapMyNFT.createEmptyMinterCollection()
 
         // save it to the account
-        signer.save(<-collection, to: TapMyNFT.CollectionStoragePath)
+        signer.save(<-collection, to: TapMyNFT.MinterStoragePath)
 
-        // create a public capability for the collection
-        signer.link<&{NonFungibleToken.CollectionPublic, TapMyNFT.TapMyNFTCollectionPublic, MetadataViews.ResolverCollection}>(
-            TapMyNFT.CollectionPublicPath,
-            target: TapMyNFT.CollectionStoragePath
-        )
+        // // create a public capability for the collection
+        // signer.link<&{NonFungibleToken.CollectionPublic, TapMyNFT.TapMyNFTCollectionPublic, MetadataViews.ResolverCollection}>(
+        //     TapMyNFT.CollectionPublicPath,
+        //     target: TapMyNFT.CollectionStoragePath
+        // )
     }
 }

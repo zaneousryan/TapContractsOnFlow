@@ -1,5 +1,5 @@
-import ExampleNFT from 0xc80e5a9b72b5ad08
+import TapMyNFT from 0xa46238203d51b316
 
 pub fun main(): UInt64 {
-    return ExampleNFT.totalSupply
+    return TapMyNFT.totalSupply
 }

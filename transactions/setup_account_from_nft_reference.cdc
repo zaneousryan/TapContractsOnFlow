@@ -1,6 +1,12 @@
-import NonFungibleToken from 0xc80e5a9b72b5ad08
-import MetadataViews from 0xc80e5a9b72b5ad08
-import ExampleNFT from 0xc80e5a9b72b5ad08
+///MAINTNET
+//import NonFungibleToken from 0x1d7e57aa55817448
+//import TapMyNFT from 0x0de9e8845aa8b678
+//import MetadataViews from 0x0de9e8845aa8b678
+
+///TESTNET
+import NonFungibleToken from 0x631e88ae7f1d7c20
+import TapMyNFT from 0xa46238203d51b316
+import MetadataViews from 0xa46238203d51b316
 
 /// This transaction is what an account would run
 /// to set itself up to receive NFTs. This function
@@ -25,7 +31,7 @@ transaction(address: Address, publicPath: PublicPath, id: UInt64) {
         signer.save(<-emptyCollection, to: nftCollectionView.storagePath)
 
         // create a public capability for the collection
-        signer.link<&{NonFungibleToken.CollectionPublic, ExampleNFT.ExampleNFTCollectionPublic, MetadataViews.ResolverCollection}>(
+        signer.link<&{NonFungibleToken.CollectionPublic, TapMyNFT.TapMyNFTCollectionPublic, MetadataViews.ResolverCollection}>(
             nftCollectionView.publicPath,
             target: nftCollectionView.storagePath
         )

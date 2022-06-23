@@ -9,16 +9,17 @@
 //
 // Learn more about non-fungible tokens in this tutorial: https://docs.onflow.org/docs/non-fungible-tokens
 
-import MetadataViews from 0xc80e5a9b72b5ad08
 
 
 ///MAINTNET
 //import FungibleToken from 0xf233dcee88fe0abe
 //import NonFungibleToken from 0x1d7e57aa55817448
+//import MetadataViews from 0x0de9e8845aa8b678
 
 ///TESTNET
 import FungibleToken from 0x9a0766d93b6608b7
 import NonFungibleToken from 0x631e88ae7f1d7c20
+import MetadataViews from 0xa46238203d51b316
 
 pub contract TapMyNFT: NonFungibleToken {
 
@@ -91,7 +92,7 @@ pub contract TapMyNFT: NonFungibleToken {
                 case Type<MetadataViews.Editions>():
                     // There is no max number of NFTs that can be minted from this contract
                     // so the max edition field value is set to nil
-                    let editionInfo = MetadataViews.Edition(name: "Example NFT Edition", number: self.id, max: nil)
+                    let editionInfo = MetadataViews.Edition(name: "Tap My NFT Edition", number: self.id, max: nil)
                     let editionList: [MetadataViews.Edition] = [editionInfo]
                     return MetadataViews.Editions(
                         editionList
@@ -105,7 +106,7 @@ pub contract TapMyNFT: NonFungibleToken {
                         self.royalties
                     )
                 case Type<MetadataViews.ExternalURL>():
-                    return MetadataViews.ExternalURL("https://example-nft.onflow.org/".concat(self.id.toString()))
+                    return MetadataViews.ExternalURL("https://tapmynft.com/".concat(self.id.toString()))
                 case Type<MetadataViews.NFTCollectionData>():
                     return MetadataViews.NFTCollectionData(
                         storagePath: TapMyNFT.CollectionStoragePath,
@@ -208,8 +209,8 @@ pub contract TapMyNFT: NonFungibleToken {
 
         pub fun borrowViewResolver(id: UInt64): &AnyResource{MetadataViews.Resolver} {
             let nft = (&self.ownedNFTs[id] as auth &NonFungibleToken.NFT?)!
-            let TapMyNFT = nft as! &TapMyNFT.NFT
-            return TapMyNFT as &AnyResource{MetadataViews.Resolver}
+            let tapMyNFT = nft as! &TapMyNFT.NFT
+            return tapMyNFT as &AnyResource{MetadataViews.Resolver}
         }
 
         destroy() {
